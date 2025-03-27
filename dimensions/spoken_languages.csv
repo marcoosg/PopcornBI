@@ -1,6 +1,5 @@
 ﻿iso_639_1,name
 af,Afrikaans
-am,Amharic
 ar,العربية
 be,беларуская мова
 bg,български език
@@ -13,6 +12,7 @@ ca,Català
 ce,Chechen
 cn,广州话 / 廣州話
 co,Corsican
+cr,Cree
 cs,Český
 cy,Cymraeg
 da,Dansk
@@ -35,7 +35,6 @@ gu,Gujarati
 he,עִבְרִית
 hi,हिन्दी
 hr,Hrvatski
-ht,Haitian
 hu,Magyar
 hy,Armenian
 id,Bahasa indonesia
@@ -54,6 +53,7 @@ kw,Cornish
 la,Latin
 ln,Lingala
 lo,Lao
+lv,Latviešu
 mi,Maori
 mk,Macedonian
 ml,Malayalam
@@ -66,16 +66,13 @@ nl,Nederlands
 no,Norsk
 nv,Navajo
 ny,Nyanja
-oc,Occitan (post 1500)
 pa,ਪੰਜਾਬੀ
 pl,Polski
 ps,پښتو
 pt,Português
-qu,Quechua
 ro,Română
 ru,Pусский
 sa,Sanskrit
-se,Northern Sami
 sh,Serbo-Croatian
 si,Sinhala
 sk,Slovenčina
@@ -87,6 +84,7 @@ sv,svenska
 sw,Kiswahili
 ta,தமிழ்
 te,తెలుగు
+tg,Tajik
 th,ภาษาไทย
 tl,Tagalog
 to,Tonga (Tonga Islands)

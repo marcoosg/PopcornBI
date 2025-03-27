@@ -1,6 +1,5 @@
 iso_3166_1,name
 AE,United Arab Emirates
-AM,Armenia
 AR,Argentina
 AT,Austria
 AU,Australia
@@ -20,18 +19,18 @@ CM,Cameroon
 CN,China
 CO,Colombia
 CR,Costa Rica
-CU,Cuba
+CS,Serbia and Montenegro
 CZ,Czech Republic
 DE,Germany
 DK,Denmark
 DO,Dominican Republic
 DZ,Algeria
 EC,Ecuador
-EG,Egypt
 ES,Spain
 FI,Finland
 FR,France
 GB,United Kingdom
+GE,Georgia
 GH,Ghana
 GR,Greece
 HK,Hong Kong
@@ -41,10 +40,10 @@ ID,Indonesia
 IE,Ireland
 IL,Israel
 IN,India
-IQ,Iraq
 IR,Iran
 IS,Iceland
 IT,Italy
+JM,Jamaica
 JP,Japan
 KH,Cambodia
 KR,South Korea
@@ -59,7 +58,8 @@ MA,Morocco
 MC,Monaco
 MK,Macedonia
 ML,Mali
-MQ,Martinique
+MN,Mongolia
+MO,Macao
 MT,Malta
 MX,Mexico
 MY,Malaysia
@@ -71,6 +71,8 @@ PE,Peru
 PH,Philippines
 PK,Pakistan
 PL,Poland
+PR,Puerto Rico
+PS,Palestinian Territory
 PT,Portugal
 PY,Paraguay
 QA,Qatar
@@ -80,18 +82,17 @@ RU,Russia
 SE,Sweden
 SG,Singapore
 SI,Slovenia
-SK,Slovakia
 SN,Senegal
-TD,Chad
 TH,Thailand
+TJ,Tajikistan
 TN,Tunisia
 TR,Turkey
 TW,Taiwan
 UA,Ukraine
 US,United States of America
 UY,Uruguay
+UZ,Uzbekistan
 VE,Venezuela
 VN,Vietnam
-XG,East Germany
 ZA,South Africa
 ZW,Zimbabwe
