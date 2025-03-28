@@ -8,6 +8,7 @@ BA,Bosnia and Herzegovina
 BE,Belgium
 BF,Burkina Faso
 BG,Bulgaria
+BO,Bolivia
 BR,Brazil
 BS,Bahamas
 BT,Bhutan
@@ -15,7 +16,6 @@ BW,Botswana
 CA,Canada
 CH,Switzerland
 CL,Chile
-CM,Cameroon
 CN,China
 CO,Colombia
 CR,Costa Rica
@@ -43,7 +43,6 @@ IN,India
 IR,Iran
 IS,Iceland
 IT,Italy
-JM,Jamaica
 JP,Japan
 KH,Cambodia
 KR,South Korea
@@ -59,20 +58,19 @@ MC,Monaco
 MK,Macedonia
 ML,Mali
 MN,Mongolia
-MO,Macao
 MT,Malta
 MX,Mexico
 MY,Malaysia
 NA,Namibia
 NL,Netherlands
 NO,Norway
+NP,Nepal
 NZ,New Zealand
 PE,Peru
 PH,Philippines
 PK,Pakistan
 PL,Poland
 PR,Puerto Rico
-PS,Palestinian Territory
 PT,Portugal
 PY,Paraguay
 QA,Qatar
@@ -81,7 +79,7 @@ RS,Serbia
 RU,Russia
 SE,Sweden
 SG,Singapore
-SI,Slovenia
+SK,Slovakia
 SN,Senegal
 TH,Thailand
 TJ,Tajikistan
@@ -94,5 +92,7 @@ UY,Uruguay
 UZ,Uzbekistan
 VE,Venezuela
 VN,Vietnam
+XC,Czechoslovakia
+XG,East Germany
 ZA,South Africa
 ZW,Zimbabwe
