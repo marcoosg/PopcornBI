@@ -1,22 +1,8 @@
-from modules.config_general import os, pd, json, TMDb, Movie, ThreadPoolExecutor
-from modules.movies import Movies
+from modules.config_general import os, pd, json, TMDb, Movie, ThreadPoolExecutor, logger
+# from modules.movies import Movies
 from modules.ratings import Rating
-import logging
 
-log_dir = "logs"
-log_file = os.path.join(log_dir, "errors.log")
-os.makedirs(log_dir, exist_ok=True)
-
-if not os.path.exists(log_file):
-    with open(log_file, "w"):  
-        pass
-
-logging.basicConfig(
-    filename=log_file,
-    level=logging.ERROR,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
+logger.info("\n")
 
 # movies_df
 movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/Sinelytics/project_data/movies_main.csv', encoding='utf-8')
@@ -83,13 +69,13 @@ def merge_batch_files(batch_files):
             df = pd.read_csv(batch_file, encoding='utf-8', on_bad_lines='skip', engine='python')
             dataframes.append(df)
         except UnicodeDecodeError:
-            print(f"Skipping file due to encoding error: {batch_file}")
+            logger.info(f"Skipping file due to encoding error: {batch_file}")
         except Exception as e:
-            print(f"Error reading file {batch_file}: {e}")
+            logger.error(f"Error reading file {batch_file}: {e}")
     if dataframes:
         return pd.concat(dataframes, ignore_index=True)
     else:
-        print("No valid batch files to merge.")
+        logger.error("No valid batch files to merge.")
         return pd.DataFrame()
 
 def selective_update(original_df, updated_df):
@@ -108,6 +94,7 @@ movies_df = movies_df[~((movies_df['revenue'] == 0) | (movies_df['budget'] == 0)
 movies_df = movies_df[(movies_df['budget'] >= 100000) & (movies_df['revenue'] >= 100000)].reset_index(drop=True)
 
 movies_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
+logger.info("Successfully cleaned movies_df and saved to CSV.")
 
 # movie_extended_df
 movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/Sinelytics/project_data/movie_extended.csv', encoding='utf-8')
@@ -139,6 +126,7 @@ movie_extended_df = movie_extended_df[
 ].reset_index(drop=True)
 
 movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
+logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
 
 # ratings_df
 with open('/Users/marcoo_sg/Desktop/Sinelytics/project_data/ratings.json') as f:
@@ -159,4 +147,4 @@ ratings_df = ratings_df[ratings_df['id'].isin(movies_df['id'].astype(int))]
 ratings_df = ratings_df.drop_duplicates()
 
 ratings_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
-
+logger.info("Successfully cleaned ratings_df and saved to CSV.")

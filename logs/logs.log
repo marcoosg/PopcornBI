@@ -1,0 +1,50 @@
+2025-03-29 15:56:59,618 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-03-29 15:56:59,755 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-03-29 15:56:59,813 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-03-29 15:56:59,895 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-03-29 15:57:00,011 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-03-29 15:57:00,025 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-03-29 15:57:00,031 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-03-29 15:57:00,031 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-03-29 15:57:00,034 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-03-29 15:57:00,055 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-03-29 15:58:18,544 - INFO - fact_movies successfully written to MySQL.
+2025-03-29 15:58:19,643 - INFO - dim_date successfully written to MySQL.
+2025-03-29 15:58:19,816 - INFO - dim_ratings successfully written to MySQL.
+2025-03-29 15:58:20,156 - INFO - dim_genre successfully written to MySQL.
+2025-03-29 15:58:20,873 - INFO - dim_production_company successfully written to MySQL.
+2025-03-29 15:58:21,353 - INFO - dim_production_countries successfully written to MySQL.
+2025-03-29 15:58:22,396 - INFO - dim_spoken_language successfully written to MySQL.
+2025-03-29 15:58:23,708 - INFO - br_movie_genres successfully written to MySQL.
+2025-03-29 15:58:24,914 - INFO - br_movie_companies successfully written to MySQL.
+2025-03-29 15:58:25,820 - INFO - br_movie_countries successfully written to MySQL.
+2025-03-29 15:58:26,615 - INFO - br_movie_languages successfully written to MySQL.
+2025-03-29 15:58:27,405 - INFO - Closing down clientserver connection
+2025-03-29 16:06:06,140 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-03-29 16:06:06,285 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-03-29 16:06:06,485 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-03-29 16:06:06,676 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-03-29 16:06:06,959 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-03-29 16:06:06,960 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-03-29 16:06:06,975 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-03-29 16:06:06,976 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-03-29 16:06:07,034 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-03-29 16:06:07,046 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-03-29 16:06:07,799 - INFO - Successfully cleaned movies_df and saved to CSV.
+2025-03-29 16:06:07,904 - INFO - Successfully cleaned movie_extended_df and saved to CSV.
+2025-03-29 16:06:07,953 - INFO - Successfully cleaned ratings_df and saved to CSV.
+2025-03-29 16:06:47,651 - INFO - 
+
+2025-03-29 16:06:49,610 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-03-29 16:06:49,710 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-03-29 16:06:49,772 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-03-29 16:06:49,840 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-03-29 16:06:49,931 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-03-29 16:06:49,932 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-03-29 16:06:49,932 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-03-29 16:06:49,938 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-03-29 16:06:49,950 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-03-29 16:06:49,991 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-03-29 16:06:50,650 - INFO - Successfully cleaned movies_df and saved to CSV.
+2025-03-29 16:06:50,762 - INFO - Successfully cleaned movie_extended_df and saved to CSV.
+2025-03-29 16:06:50,812 - INFO - Successfully cleaned ratings_df and saved to CSV.

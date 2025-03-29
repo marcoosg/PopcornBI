@@ -1,5 +1,5 @@
 from modules.config_pyspark import spark
-from modules.config_general import languages
+from modules.config_general import languages, logger
 from pyspark.sql.functions import (
     col, to_date, year, quarter, month, dayofmonth, weekofyear, dayofweek,
     date_format, when, lit, explode, split, row_number, trim,
@@ -205,7 +205,7 @@ def execute_sql(query: str):
         stmt.close()
         conn.close()
     except Exception as e:
-        print(f"SQL Execution Error: {e}")
+        logger.error(f"SQL Execution Error: {e}")
 
 execute_sql("SET FOREIGN_KEY_CHECKS = 0;")
 
@@ -249,9 +249,9 @@ for name, df in dataframes.items():
         if df is not None:
             cleaned_df = replace_nan_with_null(df)
             cleaned_df.write.jdbc(url=db_url, table=name, mode="append", properties=db_properties)
-            print(f"{name} successfully written to MySQL.")
+            logger.info(f"{name} successfully written to MySQL.")
     except Exception as e:
-        print(f"Error processing {name}: {e}")
+        logger.error(f"Error processing {name}: {e}")
 
 execute_sql("SET FOREIGN_KEY_CHECKS = 1;")
 

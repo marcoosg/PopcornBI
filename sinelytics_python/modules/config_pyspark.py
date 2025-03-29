@@ -10,8 +10,8 @@ os.environ['HADOOP_HOME'] = hadoop_home
 os.environ['HADOOP_CONF_DIR'] = os.path.join(hadoop_home, 'etc', 'hadoop')
 os.environ['LD_LIBRARY_PATH'] = os.path.join(hadoop_home, 'lib', 'native') + ':' + os.environ.get('LD_LIBRARY_PATH', '')
 os.environ['SPARK_DIST_CLASSPATH'] = os.popen(f"{os.path.join(hadoop_home, 'bin', 'hadoop')} classpath").read()
-os.environ['PYSPARK_PYTHON'] = 'python' 
-os.environ['PYSPARK_DRIVER_PYTHON'] = 'python'
+os.environ['PYSPARK_PYTHON'] = '/Users/marcoo_sg/.pyenv/versions/3.12.0/bin/python' 
+os.environ['PYSPARK_DRIVER_PYTHON'] = '/Users/marcoo_sg/.pyenv/versions/3.12.0/bin/python'
 
 # Creating Spark session with MySQL connector
 try:
