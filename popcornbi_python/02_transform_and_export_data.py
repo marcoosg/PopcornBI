@@ -12,7 +12,7 @@ from pyspark.sql.types import (
 from pyspark.sql.window import Window
 
 # import movie_df_cleaned
-movies_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movies_df_cleaned.csv", header=True, inferSchema=True))
+movies_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", header=True, inferSchema=True))
 
 # Create dim_date
 dim_date_df = (movies_spark_df
@@ -42,28 +42,28 @@ fact_movies_df = (movies_spark_df
 )
 
 # Import movie_extended_df_cleaned
-movies_extended_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movie_extended_df_cleaned.csv", header=True, inferSchema=True))
+movies_extended_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", header=True, inferSchema=True))
 
 # Create dim_genre
 dim_genre_df = (movies_extended_spark_df
     .select(explode(split(col("genres"), ",")).alias("genre_name"))
-    .filter(col("genre_name").isNotNull())  # Equivalent to dropna()
-    .distinct()  # Equivalent to set()
+    .filter(col("genre_name").isNotNull()) 
+    .distinct()  
     .select(
         col("genre_name").alias("genre_name").cast("string").alias("genre_name")
     )
-    .orderBy("genre_name")  # Sort in ascending order
-    .withColumn("genre_id", row_number().over(Window.orderBy("genre_name")))  # Add sequential IDs starting from 1
+    .orderBy("genre_name") 
+    .withColumn("genre_id", row_number().over(Window.orderBy("genre_name")))  
 )
 
 # Created dim_production_company
 dim_production_company_df = (movies_extended_spark_df
     .select(explode(split(col("production_companies"), ",")).alias("company_name"))
-    .filter(col("company_name").isNotNull())  # Equivalent to dropna()
-    .filter(trim(col("company_name")) != "")  # Exclude empty or space-only strings using trim()
-    .distinct()  # Equivalent to set()
-    .orderBy("company_name")  # Sort in ascending order
-    .withColumn("company_id", row_number().over(Window.orderBy("company_name")))  # Add sequential IDs starting from 1
+    .filter(col("company_name").isNotNull()) 
+    .filter(trim(col("company_name")) != "") 
+    .distinct() 
+    .orderBy("company_name")  
+    .withColumn("company_id", row_number().over(Window.orderBy("company_name")))  
     .select(
         col("company_id").cast("integer").alias("company_id"),
         col("company_name").cast("string").alias("company_name")
@@ -77,25 +77,25 @@ country_schema = ArrayType(StructType([
 ]))
 
 dim_production_countries_df = (movies_extended_spark_df
-    .filter(col("production_countries").isNotNull())  # Equivalent to dropna()
+    .filter(col("production_countries").isNotNull())  
     .select(
         explode(
             when(
                 col("production_countries").cast("string").isNotNull(),
                 from_json(
-                    replace(col("production_countries").cast("string"), lit("'"), lit('"')),  # Explicitly use lit() for literals
+                    replace(col("production_countries").cast("string"), lit("'"), lit('"')),  
                     country_schema
                 )
-            ).otherwise(array().cast(country_schema))  # Empty array if parsing fails
+            ).otherwise(array().cast(country_schema))  
         ).alias("country")
     )
-    .filter(col("country.iso_3166_1").isNotNull() & col("country.name").isNotNull())  # Ensure both fields exist
+    .filter(col("country.iso_3166_1").isNotNull() & col("country.name").isNotNull())  
     .select(
         col("country.iso_3166_1").alias("iso_3166_1"),
         col("country.name").alias("name")
     )
-    .distinct()  # Equivalent to set()
-    .orderBy("iso_3166_1", "name")  # Sort by iso_3166_1 and then name
+    .distinct()  
+    .orderBy("iso_3166_1", "name") 
 )
 
 # Create dim_spoken_languages
@@ -186,10 +186,10 @@ br_movie_languages_df = (movies_extended_spark_df.alias("m")
 )
 
 # Create dim_ratings
-dim_ratings_df = (spark.read.csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/ratings_df_cleaned.csv", header=True, inferSchema=True))
+dim_ratings_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", header=True, inferSchema=True))
 
 # Export to MySQL
-db_url = "jdbc:mysql://localhost:3306/sinelytics"
+db_url = "jdbc:mysql://localhost:3306/popcornbi"
 db_properties = {
     "user": "root",
     "password": "password",  

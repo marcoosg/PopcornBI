@@ -5,7 +5,7 @@ from modules.ratings import Rating
 logger.info("\n")
 
 # movies_df
-movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/Sinelytics/project_data/movies_main.csv', encoding='utf-8')
+movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movies_main.csv', encoding='utf-8')
 
 ## Clean movies_df
 movies_df['budget'] = pd.to_numeric(movies_df['budget'], errors='coerce').fillna(0)
@@ -59,7 +59,7 @@ movies_df['release_date'] = pd.to_datetime(movies_df['release_date'], errors='co
 movies_df = movies_df.dropna(subset=['release_date']).reset_index(drop=True)
 
 ### Fill missing budgets and revenues
-budget_revenue_csv_dir = '/Users/marcoo_sg/Desktop/Sinelytics/project_data/budget_revenue_csv/'
+budget_revenue_csv_dir = '/Users/marcoo_sg/Desktop/PopcornBI/project_data/budget_revenue_csv/'
 os.makedirs(budget_revenue_csv_dir, exist_ok=True)
 
 def merge_batch_files(batch_files):
@@ -93,11 +93,11 @@ if os.listdir(budget_revenue_csv_dir):
 movies_df = movies_df[~((movies_df['revenue'] == 0) | (movies_df['budget'] == 0))]
 movies_df = movies_df[(movies_df['budget'] >= 100000) & (movies_df['revenue'] >= 100000)].reset_index(drop=True)
 
-movies_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
+movies_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
 logger.info("Successfully cleaned movies_df and saved to CSV.")
 
 # movie_extended_df
-movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/Sinelytics/project_data/movie_extended.csv', encoding='utf-8')
+movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movie_extended.csv', encoding='utf-8')
 
 ## Clean movie_extended_df
 ### Remove rows where id is not in movies_df
@@ -125,11 +125,11 @@ movie_extended_df = movie_extended_df[
     )
 ].reset_index(drop=True)
 
-movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
+movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
 logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
 
 # ratings_df
-with open('/Users/marcoo_sg/Desktop/Sinelytics/project_data/ratings.json') as f:
+with open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json') as f:
     ratings_data = json.load(f)
 
 ratings = list(map(lambda item: Rating.from_json(item), ratings_data))
@@ -146,5 +146,5 @@ ratings_df = ratings_df[ratings_df['id'].isin(movies_df['id'].astype(int))]
 
 ratings_df = ratings_df.drop_duplicates()
 
-ratings_df.to_csv("/Users/marcoo_sg/Desktop/Sinelytics/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
+ratings_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
 logger.info("Successfully cleaned ratings_df and saved to CSV.")
