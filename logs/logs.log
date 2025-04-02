@@ -48,3 +48,35 @@
 2025-03-29 16:06:50,650 - INFO - Successfully cleaned movies_df and saved to CSV.
 2025-03-29 16:06:50,762 - INFO - Successfully cleaned movie_extended_df and saved to CSV.
 2025-03-29 16:06:50,812 - INFO - Successfully cleaned ratings_df and saved to CSV.
+2025-04-02 17:11:37,087 - INFO - 
+
+2025-04-02 17:12:14,409 - INFO - 
+
+2025-04-02 17:12:52,584 - INFO - 
+
+2025-04-02 17:13:01,499 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-04-02 17:13:01,869 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-04-02 17:13:02,015 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-04-02 17:13:02,263 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-04-02 17:13:02,511 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-04-02 17:13:02,539 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-04-02 17:13:02,564 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-04-02 17:13:02,565 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-04-02 17:13:02,612 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-04-02 17:13:02,691 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-04-02 17:13:03,267 - INFO - Successfully cleaned movies_df and saved to CSV.
+2025-04-02 17:13:03,374 - INFO - Successfully cleaned movie_extended_df and saved to CSV.
+2025-04-02 17:13:03,403 - INFO - Successfully cleaned ratings_df and saved to CSV.
+2025-04-02 17:13:13,549 - INFO - fact_movies successfully written to MySQL.
+2025-04-02 17:13:14,599 - INFO - dim_date successfully written to MySQL.
+2025-04-02 17:13:14,759 - INFO - dim_ratings successfully written to MySQL.
+2025-04-02 17:13:15,063 - INFO - dim_genre successfully written to MySQL.
+2025-04-02 17:13:15,715 - INFO - dim_production_company successfully written to MySQL.
+2025-04-02 17:13:16,141 - INFO - dim_production_countries successfully written to MySQL.
+2025-04-02 17:13:17,128 - INFO - dim_spoken_language successfully written to MySQL.
+2025-04-02 17:13:18,262 - INFO - br_movie_genres successfully written to MySQL.
+2025-04-02 17:13:19,399 - INFO - br_movie_companies successfully written to MySQL.
+2025-04-02 17:13:20,293 - INFO - br_movie_countries successfully written to MySQL.
+2025-04-02 17:13:21,051 - INFO - br_movie_languages successfully written to MySQL.
+2025-04-02 17:13:21,129 - INFO - Closing down clientserver connection
+2025-04-02 17:45:26,915 - INFO - Closing down clientserver connection

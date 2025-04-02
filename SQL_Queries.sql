@@ -1,3 +1,88 @@
+CREATE TABLE dim_date (
+    date_id INT PRIMARY KEY,
+    full_date DATE,
+    year INT,
+    quarter INT,
+    month INT,
+    month_name VARCHAR(50),
+    day INT,
+    week_of_year INT,
+    day_of_week INT,
+    day_name VARCHAR(50),
+    is_weekend BOOLEAN
+);
+
+CREATE TABLE dim_genre (
+    genre_id INT PRIMARY KEY,
+    genre_name VARCHAR(255)
+);
+
+CREATE TABLE dim_production_company (
+    company_id INT PRIMARY KEY,
+    company_name VARCHAR(255)
+);
+
+CREATE TABLE dim_production_countries (
+    iso_3166_1 CHAR(3) PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE dim_spoken_language (
+    iso_639_1 CHAR(3) PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE fact_movies (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    date_id INT,
+    budget FLOAT,
+    revenue FLOAT,
+    FOREIGN KEY (date_id) REFERENCES dim_date(date_id)
+);
+
+CREATE TABLE dim_ratings (
+    id INT PRIMARY KEY,
+    avg_rating FLOAT,
+    total_ratings FLOAT,
+    std_dev FLOAT,
+    last_rated INT,
+    FOREIGN KEY (id) REFERENCES fact_movies(id)
+);
+
+CREATE TABLE br_movie_genres (
+    movie_id INT,
+    genre_id INT,
+    PRIMARY KEY (movie_id, genre_id),
+    FOREIGN KEY (movie_id) REFERENCES fact_movies(id),
+    FOREIGN KEY (genre_id) REFERENCES dim_genre(genre_id)
+);
+
+CREATE TABLE br_movie_companies (
+    movie_id INT,
+    company_id INT,
+    PRIMARY KEY (movie_id, company_id),
+    FOREIGN KEY (movie_id) REFERENCES fact_movies(id),
+    FOREIGN KEY (company_id) REFERENCES dim_production_company(company_id)
+);
+
+CREATE TABLE br_movie_countries (
+    movie_id INT,
+    iso_3166_1 CHAR(3),
+    PRIMARY KEY (movie_id, iso_3166_1),
+    FOREIGN KEY (movie_id) REFERENCES fact_movies(id),
+    FOREIGN KEY (iso_3166_1) REFERENCES dim_production_countries(iso_3166_1)
+);
+
+CREATE TABLE br_movie_languages (
+    movie_id INT,
+    iso_639_1 CHAR(3),
+    PRIMARY KEY (movie_id, iso_639_1),
+    FOREIGN KEY (movie_id) REFERENCES fact_movies(id),
+    FOREIGN KEY (iso_639_1) REFERENCES dim_spoken_language(iso_639_1)
+);
+
+
 -- Monthly revenue changes
 -- if partitioned by year
 SELECT 

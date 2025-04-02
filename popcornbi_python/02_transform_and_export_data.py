@@ -185,10 +185,8 @@ br_movie_languages_df = (movies_extended_spark_df.alias("m")
     .distinct()
 )
 
-# Create dim_ratings
 dim_ratings_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", header=True, inferSchema=True))
 
-# Export to MySQL
 db_url = "jdbc:mysql://localhost:3306/popcornbi"
 db_properties = {
     "user": "root",
@@ -196,18 +194,18 @@ db_properties = {
     "driver": "com.mysql.cj.jdbc.Driver"
 }
 
-def execute_sql(query: str):
-    """ Execute a SQL query without returning a DataFrame """
+def execute_sql(queries):
     try:
         conn = spark._jvm.java.sql.DriverManager.getConnection(db_url, db_properties["user"], db_properties["password"])
         stmt = conn.createStatement()
-        stmt.execute(query)
+
+        for query in queries:
+            stmt.execute(query)
+
         stmt.close()
         conn.close()
     except Exception as e:
-        logger.error(f"SQL Execution Error: {e}")
-
-execute_sql("SET FOREIGN_KEY_CHECKS = 0;")
+        print(f"SQL Execution Error: {e}")
 
 tables = [
     "fact_movies", "dim_date", "dim_ratings", "dim_genre", "dim_production_company", 
@@ -215,8 +213,8 @@ tables = [
     "br_movie_countries", "br_movie_languages"
 ]
 
-for table in tables:
-    execute_sql(f"DROP TABLE IF EXISTS {table};")
+queries = ["SET FOREIGN_KEY_CHECKS = 0;"] + [f"DELETE FROM {table};" for table in tables] + ["SET FOREIGN_KEY_CHECKS = 1;"]
+execute_sql(queries)
 
 def replace_nan_with_null(df):
     if df is not None:
@@ -231,13 +229,13 @@ if dim_date_df is not None:
     dim_date_df = dim_date_df.withColumn("full_date", col("full_date").cast(StringType()))
 
 dataframes = {
-    "fact_movies": fact_movies_df,
     "dim_date": dim_date_df,
-    "dim_ratings": dim_ratings_df,
     "dim_genre": dim_genre_df,
     "dim_production_company": dim_production_company_df,
     "dim_production_countries": dim_production_countries_df,
     "dim_spoken_language": dim_spoken_language_df,
+    "fact_movies": fact_movies_df,
+    "dim_ratings": dim_ratings_df,
     "br_movie_genres": br_movie_genres_df,
     "br_movie_companies": br_movie_companies_df,
     "br_movie_countries": br_movie_countries_df,
@@ -249,10 +247,8 @@ for name, df in dataframes.items():
         if df is not None:
             cleaned_df = replace_nan_with_null(df)
             cleaned_df.write.jdbc(url=db_url, table=name, mode="append", properties=db_properties)
-            logger.info(f"{name} successfully written to MySQL.")
+            print(f"{name} successfully written to MySQL.")
     except Exception as e:
-        logger.error(f"Error processing {name}: {e}")
-
-execute_sql("SET FOREIGN_KEY_CHECKS = 1;")
+        print(f"Error processing {name}: {e}")
 
 spark.stop()

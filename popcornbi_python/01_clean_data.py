@@ -1,5 +1,5 @@
 from modules.config_general import os, pd, json, TMDb, Movie, ThreadPoolExecutor, logger
-# from modules.movies import Movies
+from modules.movies import Movies
 from modules.ratings import Rating
 
 logger.info("\n")
@@ -7,20 +7,33 @@ logger.info("\n")
 # movies_df
 movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movies_main.csv', encoding='utf-8')
 
-## Clean movies_df
-movies_df['budget'] = pd.to_numeric(movies_df['budget'], errors='coerce').fillna(0)
-movies_df['revenue'] = pd.to_numeric(movies_df['revenue'], errors='coerce').fillna(0)
+# Convert to Movies objects
+movies_list = [Movies.from_csv_row(row) for _, row in movies_df.iterrows()]
 
-def parse_date(date_str):
-    for fmt in ('%m/%d/%Y', '%d-%m-%Y', '%Y-%m-%d'):
-        try:
-            return pd.to_datetime(date_str, format=fmt).strftime('%Y-%m-%d')
-        except ValueError:
-            pass
-    return pd.NaT
+# Data Cleaning (Processing in Movies objects)
+for movie in movies_list:
+    movie.budget = pd.to_numeric(movie.budget, errors='coerce')
+    movie.revenue = pd.to_numeric(movie.revenue, errors='coerce')
 
-movies_df['release_date'] = movies_df['release_date'].apply(parse_date)
-movies_df['release_date'] = pd.to_datetime(movies_df['release_date'], errors='coerce')
+    if pd.isna(movie.budget):
+        movie.budget = 0
+    if pd.isna(movie.revenue):
+        movie.revenue = 0
+    
+    def parse_date(date_str):
+        for fmt in ('%m/%d/%Y', '%d-%m-%Y', '%Y-%m-%d'):
+            try:
+                return pd.to_datetime(date_str, format=fmt).strftime('%Y-%m-%d')
+            except ValueError:
+                pass
+        return pd.NaT
+
+    movie.release_date = parse_date(movie.release_date)
+    
+    movie.release_date = pd.to_datetime(movie.release_date, errors='coerce')
+
+# Convert back to DataFrame
+movies_df = pd.DataFrame([movie.__dict__ for movie in movies_list])
 
 movies_df = movies_df.drop_duplicates()
 movies_df = movies_df.drop_duplicates(subset='id', keep='first')
