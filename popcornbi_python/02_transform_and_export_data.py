@@ -12,7 +12,8 @@ from pyspark.sql.types import (
 from pyspark.sql.window import Window
 
 # import movie_df_cleaned
-movies_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", header=True, inferSchema=True))
+movies_spark_df = spark.read.parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.parquet")
+# movies_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", header=True, inferSchema=True))
 
 # Create dim_date
 dim_date_df = (movies_spark_df
@@ -42,7 +43,8 @@ fact_movies_df = (movies_spark_df
 )
 
 # Import movie_extended_df_cleaned
-movies_extended_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", header=True, inferSchema=True))
+movies_extended_spark_df = spark.read.parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.parquet")
+# movies_extended_spark_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", header=True, inferSchema=True))
 
 # Create dim_genre
 dim_genre_df = (movies_extended_spark_df
@@ -185,12 +187,15 @@ br_movie_languages_df = (movies_extended_spark_df.alias("m")
     .distinct()
 )
 
-dim_ratings_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", header=True, inferSchema=True))
+# Import ratings_df_cleaned
+dim_ratings_df = spark.read.parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.parquet")
+# dim_ratings_df = (spark.read.csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", header=True, inferSchema=True))
 
-db_url = "jdbc:mysql://localhost:3306/popcornbi"
+### Export to MySQL
+db_url = "jdbc:mysql://localhost:3306/popcornbi?rewriteBatchedStatements=true"
 db_properties = {
     "user": "root",
-    "password": "password",  
+    "password": "password", 
     "driver": "com.mysql.cj.jdbc.Driver"
 }
 
@@ -198,10 +203,8 @@ def execute_sql(queries):
     try:
         conn = spark._jvm.java.sql.DriverManager.getConnection(db_url, db_properties["user"], db_properties["password"])
         stmt = conn.createStatement()
-
         for query in queries:
             stmt.execute(query)
-
         stmt.close()
         conn.close()
     except Exception as e:
@@ -213,11 +216,10 @@ tables = [
     "br_movie_countries", "br_movie_languages"
 ]
 
-queries = ["SET FOREIGN_KEY_CHECKS = 0;"] + [f"DELETE FROM {table};" for table in tables] + ["SET FOREIGN_KEY_CHECKS = 1;"]
-execute_sql(queries)
-
 def replace_nan_with_null(df):
     if df is not None:
+        from pyspark.sql.functions import isnan, col, when
+        from pyspark.sql.types import DoubleType, FloatType
         return df.select([
             when(isnan(col(c)) | col(c).isNull(), None).otherwise(col(c)).alias(c)
             if df.schema[c].dataType in [DoubleType(), FloatType()] else col(c)
@@ -226,6 +228,8 @@ def replace_nan_with_null(df):
     return df
 
 if dim_date_df is not None:
+    from pyspark.sql.functions import col
+    from pyspark.sql.types import StringType
     dim_date_df = dim_date_df.withColumn("full_date", col("full_date").cast(StringType()))
 
 dataframes = {
@@ -246,8 +250,120 @@ for name, df in dataframes.items():
     try:
         if df is not None:
             cleaned_df = replace_nan_with_null(df)
-            cleaned_df.write.jdbc(url=db_url, table=name, mode="append", properties=db_properties)
-            print(f"{name} successfully written to MySQL.")
+            
+            temp_table = f"temp_{name}"
+            cleaned_df.write \
+                .format("jdbc") \
+                .option("url", db_url) \
+                .option("dbtable", temp_table) \
+                .option("user", db_properties["user"]) \
+                .option("password", db_properties["password"]) \
+                .option("driver", db_properties["driver"]) \
+                .option("batchsize", 5000) \
+                .mode("overwrite") \
+                .save()
+
+            if name == "dim_date":
+                upsert_query = f"""
+                INSERT INTO dim_date (date_id, full_date, year, quarter, month, month_name, day, week_of_year, day_of_week, day_name, is_weekend)
+                SELECT date_id, full_date, year, quarter, month, month_name, day, week_of_year, day_of_week, day_name, is_weekend
+                FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    full_date = VALUES(full_date),
+                    year = VALUES(year),
+                    quarter = VALUES(quarter),
+                    month = VALUES(month),
+                    month_name = VALUES(month_name),
+                    day = VALUES(day),
+                    week_of_year = VALUES(week_of_year),
+                    day_of_week = VALUES(day_of_week),
+                    day_name = VALUES(day_name),
+                    is_weekend = VALUES(is_weekend);
+                """
+            elif name == "dim_genre":
+                upsert_query = f"""
+                INSERT INTO dim_genre (genre_id, genre_name)
+                SELECT genre_id, genre_name FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    genre_name = VALUES(genre_name);
+                """
+            elif name == "dim_production_company":
+                upsert_query = f"""
+                INSERT INTO dim_production_company (company_id, company_name)
+                SELECT company_id, company_name FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    company_name = VALUES(company_name);
+                """
+            elif name == "dim_production_countries":
+                upsert_query = f"""
+                INSERT INTO dim_production_countries (iso_3166_1, name)
+                SELECT iso_3166_1, name FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    name = VALUES(name);
+                """
+            elif name == "dim_spoken_language":
+                upsert_query = f"""
+                INSERT INTO dim_spoken_language (iso_639_1, name)
+                SELECT iso_639_1, name FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    name = VALUES(name);
+                """
+            elif name == "fact_movies":
+                upsert_query = f"""
+                INSERT INTO fact_movies (id, title, date_id, budget, revenue)
+                SELECT id, title, date_id, budget, revenue FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    title = VALUES(title),
+                    date_id = VALUES(date_id),
+                    budget = VALUES(budget),
+                    revenue = VALUES(revenue);
+                """
+            elif name == "dim_ratings":
+                upsert_query = f"""
+                INSERT INTO dim_ratings (id, avg_rating, total_ratings, std_dev, last_rated)
+                SELECT id, avg_rating, total_ratings, std_dev, last_rated FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    avg_rating = VALUES(avg_rating),
+                    total_ratings = VALUES(total_ratings),
+                    std_dev = VALUES(std_dev),
+                    last_rated = VALUES(last_rated);
+                """
+            elif name == "br_movie_genres":
+                upsert_query = f"""
+                INSERT INTO br_movie_genres (movie_id, genre_id)
+                SELECT movie_id, genre_id FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    movie_id = VALUES(movie_id),
+                    genre_id = VALUES(genre_id);
+                """
+            elif name == "br_movie_companies":
+                upsert_query = f"""
+                INSERT INTO br_movie_companies (movie_id, company_id)
+                SELECT movie_id, company_id FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    movie_id = VALUES(movie_id),
+                    company_id = VALUES(company_id);
+                """
+            elif name == "br_movie_countries":
+                upsert_query = f"""
+                INSERT INTO br_movie_countries (movie_id, iso_3166_1)
+                SELECT movie_id, iso_3166_1 FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    movie_id = VALUES(movie_id),
+                    iso_3166_1 = VALUES(iso_3166_1);
+                """
+            elif name == "br_movie_languages":
+                upsert_query = f"""
+                INSERT INTO br_movie_languages (movie_id, iso_639_1)
+                SELECT movie_id, iso_639_1 FROM {temp_table}
+                ON DUPLICATE KEY UPDATE
+                    movie_id = VALUES(movie_id),
+                    iso_639_1 = VALUES(iso_639_1);
+                """
+
+            queries = [upsert_query, f"DROP TABLE IF EXISTS {temp_table};"]
+            execute_sql(queries)
+            print(f"{name} successfully upserted to MySQL.")
     except Exception as e:
         print(f"Error processing {name}: {e}")
 

@@ -1,5 +1,4 @@
-import json
-import pandas as pd
+from modules.config_general import pd
 
 class Movies:
     def __init__(self, id, title, release_date, budget, revenue):

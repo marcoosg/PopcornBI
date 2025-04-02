@@ -1,4 +1,4 @@
-from modules.config_general import os, pd, json, TMDb, Movie, ThreadPoolExecutor, logger
+from modules.config_general import os, pd, json, TMDb, Movie, ThreadPoolExecutor, logger, np
 from modules.movies import Movies
 from modules.ratings import Rating
 
@@ -106,8 +106,13 @@ if os.listdir(budget_revenue_csv_dir):
 movies_df = movies_df[~((movies_df['revenue'] == 0) | (movies_df['budget'] == 0))]
 movies_df = movies_df[(movies_df['budget'] >= 100000) & (movies_df['revenue'] >= 100000)].reset_index(drop=True)
 
-movies_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
-logger.info("Successfully cleaned movies_df and saved to CSV.")
+for col in movies_df.select_dtypes(include=[np.datetime64]).columns:
+    movies_df[col] = movies_df[col].astype("datetime64[us]")
+
+movies_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.parquet", index=False)
+logger.info("Successfully cleaned movies_df and saved to Parquet.")
+# movies_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
+# logger.info("Successfully cleaned movies_df and saved to CSV.")
 
 # movie_extended_df
 movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movie_extended.csv', encoding='utf-8')
@@ -138,8 +143,10 @@ movie_extended_df = movie_extended_df[
     )
 ].reset_index(drop=True)
 
-movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
-logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
+movie_extended_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.parquet", index=False, engine="pyarrow")
+logger.info("Successfully cleaned movie_extended_df and saved to Parquet.")
+# movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
+# logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
 
 # ratings_df
 with open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json') as f:
@@ -159,5 +166,7 @@ ratings_df = ratings_df[ratings_df['id'].isin(movies_df['id'].astype(int))]
 
 ratings_df = ratings_df.drop_duplicates()
 
-ratings_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
-logger.info("Successfully cleaned ratings_df and saved to CSV.")
+ratings_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.parquet", index=False, engine="pyarrow")
+logger.info("Successfully cleaned ratings_df and saved to Parquet.")
+# ratings_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
+# logger.info("Successfully cleaned ratings_df and saved to CSV.")

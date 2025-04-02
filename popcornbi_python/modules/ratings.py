@@ -1,5 +1,3 @@
-import json
-
 class Rating:
     def __init__(self, movie_id, avg_rating, total_ratings, std_dev, last_rated):
         self.movie_id = movie_id
