@@ -3,11 +3,11 @@ from modules.config_general import languages, logger
 from pyspark.sql.functions import (
     col, to_date, year, quarter, month, dayofmonth, weekofyear, dayofweek,
     date_format, when, lit, explode, split, row_number, trim,
-    from_json, replace, array, udf, isnan
+    from_json, replace, array, udf
 )
 from pyspark.sql.types import (
     IntegerType, BooleanType, StructType, StructField, StringType, 
-    ArrayType, DoubleType, FloatType
+    ArrayType
 )
 from pyspark.sql.window import Window
 
@@ -208,7 +208,7 @@ def execute_sql(queries):
         stmt.close()
         conn.close()
     except Exception as e:
-        print(f"SQL Execution Error: {e}")
+        logger.error(f"SQL Execution Error: {e}")
 
 tables = [
     "fact_movies", "dim_date", "dim_ratings", "dim_genre", "dim_production_company", 
@@ -363,8 +363,8 @@ for name, df in dataframes.items():
 
             queries = [upsert_query, f"DROP TABLE IF EXISTS {temp_table};"]
             execute_sql(queries)
-            print(f"{name} successfully upserted to MySQL.")
+            logger.info(f"{name} successfully upserted to MySQL.")
     except Exception as e:
-        print(f"Error processing {name}: {e}")
+        logger.error(f"Error processing {name}: {e}")
 
 spark.stop()
