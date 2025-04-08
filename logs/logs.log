@@ -239,3 +239,458 @@
 2025-04-08 08:56:15,195 - INFO - br_movie_countries successfully upserted to MySQL.
 2025-04-08 08:56:15,681 - INFO - br_movie_languages successfully upserted to MySQL.
 2025-04-08 08:56:16,653 - INFO - Closing down clientserver connection
+2025-04-08 08:59:52,578 - ERROR - Error processing dim_date: [DATATYPE_MISMATCH.UNEXPECTED_INPUT_TYPE] Cannot resolve "isnan(is_weekend)" due to data type mismatch: Parameter 1 requires the ("DOUBLE" or "FLOAT") type, however "is_weekend" has the type "BOOLEAN".;
+'Project [CASE WHEN (isnan(cast(date_id#33 as double)) OR isnull(date_id#33)) THEN cast(null as int) ELSE date_id#33 END AS date_id#209, CASE WHEN (isnan(cast(full_date#43 as double)) OR isnull(full_date#43)) THEN cast(null as string) ELSE full_date#43 END AS full_date#210, CASE WHEN (isnan(cast(year#34 as double)) OR isnull(year#34)) THEN cast(null as int) ELSE year#34 END AS year#211, CASE WHEN (isnan(cast(quarter#35 as double)) OR isnull(quarter#35)) THEN cast(null as int) ELSE quarter#35 END AS quarter#212, CASE WHEN (isnan(cast(month#36 as double)) OR isnull(month#36)) THEN cast(null as int) ELSE month#36 END AS month#213, CASE WHEN (isnan(cast(month_name#37 as double)) OR isnull(month_name#37)) THEN cast(null as string) ELSE month_name#37 END AS month_name#214, CASE WHEN (isnan(cast(day#38 as double)) OR isnull(day#38)) THEN cast(null as int) ELSE day#38 END AS day#215, CASE WHEN (isnan(cast(week_of_year#39 as double)) OR isnull(week_of_year#39)) THEN cast(null as int) ELSE week_of_year#39 END AS week_of_year#216, CASE WHEN (isnan(cast(day_of_week#40 as double)) OR isnull(day_of_week#40)) THEN cast(null as int) ELSE day_of_week#40 END AS day_of_week#217, CASE WHEN (isnan(cast(day_name#41 as double)) OR isnull(day_name#41)) THEN cast(null as string) ELSE day_name#41 END AS day_name#218, CASE WHEN (isnan(is_weekend#42) OR isnull(is_weekend#42)) THEN null ELSE is_weekend#42 END AS is_weekend#219]
++- Project [cast(date_format(cast(full_date#30 as timestamp), yyyyMMdd, Some(Asia/Manila)) as int) AS date_id#33, cast(full_date#30 as string) AS full_date#43, year(full_date#30) AS year#34, quarter(full_date#30) AS quarter#35, month(full_date#30) AS month#36, date_format(cast(full_date#30 as timestamp), MMMM, Some(Asia/Manila)) AS month_name#37, dayofmonth(full_date#30) AS day#38, weekofyear(full_date#30) AS week_of_year#39, dayofweek(full_date#30) AS day_of_week#40, date_format(cast(full_date#30 as timestamp), EEEE, Some(Asia/Manila)) AS day_name#41, cast((dayofweek(full_date#30) >= 6) as boolean) AS is_weekend#42]
+   +- Sort [full_date#30 ASC NULLS FIRST], true
+      +- Deduplicate [full_date#30]
+         +- Filter isnotnull(full_date#30)
+            +- Project [to_date(release_date#2, None, Some(Asia/Manila), false) AS full_date#30]
+               +- Relation [id#0,title#1,release_date#2,budget#3L,revenue#4] parquet
+
+2025-04-08 08:59:54,646 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 08:59:55,178 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 08:59:55,698 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 08:59:56,733 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 08:59:57,086 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 08:59:57,227 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 08:59:57,776 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 08:59:58,313 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 08:59:58,905 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 08:59:59,399 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 09:00:00,360 - INFO - Closing down clientserver connection
+2025-04-08 09:00:11,352 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 09:00:11,712 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 09:00:12,136 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 09:00:12,610 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 09:00:13,725 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 09:00:13,981 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 09:00:14,111 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 09:00:14,672 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 09:00:15,156 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 09:00:15,724 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 09:00:16,208 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 09:00:17,179 - INFO - Closing down clientserver connection
+2025-04-08 09:01:24,830 - ERROR - Error processing dim_date: An error occurred while calling o352.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,835 - ERROR - Error processing dim_genre: An error occurred while calling o358.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,839 - ERROR - Error processing dim_production_company: An error occurred while calling o364.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,844 - ERROR - Error processing dim_production_countries: An error occurred while calling o370.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,848 - ERROR - Error processing dim_spoken_language: An error occurred while calling o376.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,852 - ERROR - Error processing fact_movies: An error occurred while calling o382.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,856 - ERROR - Error processing dim_ratings: An error occurred while calling o388.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,860 - ERROR - Error processing br_movie_genres: An error occurred while calling o394.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,864 - ERROR - Error processing br_movie_companies: An error occurred while calling o400.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,868 - ERROR - Error processing br_movie_countries: An error occurred while calling o406.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:24,872 - ERROR - Error processing br_movie_languages: An error occurred while calling o412.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:01:25,037 - INFO - Closing down clientserver connection
+2025-04-08 09:01:48,224 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 09:01:48,808 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 09:01:49,215 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 09:01:49,664 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 09:01:50,603 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 09:01:50,866 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 09:01:51,013 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 09:01:51,560 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 09:01:52,031 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 09:01:52,564 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 09:01:53,065 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 09:01:54,036 - INFO - Closing down clientserver connection
+2025-04-08 09:02:50,094 - ERROR - Error processing dim_date: An error occurred while calling o352.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,098 - ERROR - Error processing dim_genre: An error occurred while calling o358.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,101 - ERROR - Error processing dim_production_company: An error occurred while calling o364.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,104 - ERROR - Error processing dim_production_countries: An error occurred while calling o370.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,109 - ERROR - Error processing dim_spoken_language: An error occurred while calling o376.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,112 - ERROR - Error processing fact_movies: An error occurred while calling o382.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,117 - ERROR - Error processing dim_ratings: An error occurred while calling o388.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,121 - ERROR - Error processing br_movie_genres: An error occurred while calling o394.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,125 - ERROR - Error processing br_movie_companies: An error occurred while calling o400.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,129 - ERROR - Error processing br_movie_countries: An error occurred while calling o406.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,133 - ERROR - Error processing br_movie_languages: An error occurred while calling o412.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:02:50,230 - INFO - Closing down clientserver connection
+2025-04-08 09:03:26,216 - ERROR - Error processing dim_date: An error occurred while calling o352.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,221 - ERROR - Error processing dim_genre: An error occurred while calling o358.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,226 - ERROR - Error processing dim_production_company: An error occurred while calling o364.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,231 - ERROR - Error processing dim_production_countries: An error occurred while calling o370.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,236 - ERROR - Error processing dim_spoken_language: An error occurred while calling o376.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,240 - ERROR - Error processing fact_movies: An error occurred while calling o382.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,244 - ERROR - Error processing dim_ratings: An error occurred while calling o388.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,249 - ERROR - Error processing br_movie_genres: An error occurred while calling o394.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,253 - ERROR - Error processing br_movie_companies: An error occurred while calling o400.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,256 - ERROR - Error processing br_movie_countries: An error occurred while calling o406.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,259 - ERROR - Error processing br_movie_languages: An error occurred while calling o412.and. Trace:
+py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:321)
+	at py4j.reflection.ReflectionEngine.getMethod(ReflectionEngine.java:329)
+	at py4j.Gateway.invoke(Gateway.java:274)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+
+2025-04-08 09:03:26,365 - INFO - Closing down clientserver connection
+2025-04-08 09:10:45,175 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 09:10:45,577 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 09:10:46,059 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 09:10:46,582 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 09:10:47,623 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 09:10:47,869 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 09:10:47,985 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 09:10:48,539 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 09:10:49,026 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 09:10:49,557 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 09:10:50,041 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 09:10:51,009 - INFO - Closing down clientserver connection
