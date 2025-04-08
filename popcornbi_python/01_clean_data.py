@@ -4,8 +4,11 @@ from modules.ratings import Rating
 
 logger.info("\n")
 
-# movies_df
+# Load Data (csv and json files)
 movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movies_main.csv', encoding='utf-8')
+movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movie_extended.csv', encoding='utf-8')
+with open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json') as f:
+    ratings_data = json.load(f)
 
 # Convert to Movies objects
 movies_list = [Movies.from_csv_row(row) for _, row in movies_df.iterrows()]
@@ -114,9 +117,6 @@ logger.info("Successfully cleaned movies_df and saved to Parquet.")
 # movies_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
 # logger.info("Successfully cleaned movies_df and saved to CSV.")
 
-# movie_extended_df
-movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movie_extended.csv', encoding='utf-8')
-
 ## Clean movie_extended_df
 ### Remove rows where id is not in movies_df
 movie_extended_df = movie_extended_df[movie_extended_df['id'].isin(movies_df['id'])].reset_index(drop=True)
@@ -149,9 +149,6 @@ logger.info("Successfully cleaned movie_extended_df and saved to Parquet.")
 # logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
 
 # ratings_df
-with open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json') as f:
-    ratings_data = json.load(f)
-
 ratings = list(map(lambda item: Rating.from_json(item), ratings_data))
 
 ratings_df = pd.DataFrame([{

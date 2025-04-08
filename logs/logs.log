@@ -187,3 +187,55 @@
 2025-04-08 08:17:40,010 - INFO - br_movie_countries successfully upserted to MySQL.
 2025-04-08 08:17:40,379 - INFO - br_movie_languages successfully upserted to MySQL.
 2025-04-08 08:17:41,043 - INFO - Closing down clientserver connection
+2025-04-08 08:36:40,748 - INFO - Closing down clientserver connection
+2025-04-08 08:38:47,272 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 08:38:47,660 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 08:38:48,109 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 08:38:48,609 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 08:38:49,535 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 08:38:49,796 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 08:38:49,923 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 08:38:50,470 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 08:38:50,929 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 08:38:51,430 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 08:38:51,927 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 08:38:52,888 - INFO - Closing down clientserver connection
+2025-04-08 08:42:21,213 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 08:42:21,615 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 08:42:22,076 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 08:42:22,564 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 08:42:23,451 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 08:42:23,729 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 08:42:23,860 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 08:42:24,463 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 08:42:24,986 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 08:42:25,561 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 08:42:26,081 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 08:42:27,000 - INFO - Closing down clientserver connection
+2025-04-08 08:55:46,794 - INFO - 
+
+2025-04-08 08:55:55,862 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-04-08 08:55:56,085 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-04-08 08:55:56,196 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-04-08 08:55:56,397 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-04-08 08:55:56,510 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-04-08 08:55:56,510 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-04-08 08:55:56,569 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-04-08 08:55:56,571 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-04-08 08:55:56,589 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-04-08 08:55:56,664 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-04-08 08:55:57,244 - INFO - Successfully cleaned movies_df and saved to Parquet.
+2025-04-08 08:55:57,283 - INFO - Successfully cleaned movie_extended_df and saved to Parquet.
+2025-04-08 08:55:57,300 - INFO - Successfully cleaned ratings_df and saved to Parquet.
+2025-04-08 08:56:10,987 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 08:56:11,338 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 08:56:11,767 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 08:56:12,260 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 08:56:13,258 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 08:56:13,514 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 08:56:13,654 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 08:56:14,194 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 08:56:14,676 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 08:56:15,195 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 08:56:15,681 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 08:56:16,653 - INFO - Closing down clientserver connection
