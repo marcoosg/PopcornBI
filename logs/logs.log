@@ -145,3 +145,45 @@
 2025-04-03 00:01:43,611 - INFO - Successfully cleaned ratings_df and saved to Parquet.
 2025-04-03 00:02:00,804 - INFO - Closing down clientserver connection
 2025-04-03 00:02:36,317 - INFO - Closing down clientserver connection
+2025-04-08 08:07:06,329 - INFO - 
+
+2025-04-08 08:07:15,249 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-04-08 08:07:15,445 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-04-08 08:07:15,524 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-04-08 08:07:15,614 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-04-08 08:07:15,754 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-04-08 08:07:15,769 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-04-08 08:07:15,769 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-04-08 08:07:15,786 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-04-08 08:07:15,840 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-04-08 08:07:15,845 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-04-08 08:07:16,468 - INFO - Successfully cleaned movies_df and saved to Parquet.
+2025-04-08 08:07:16,556 - INFO - Successfully cleaned movie_extended_df and saved to Parquet.
+2025-04-08 08:07:16,584 - INFO - Successfully cleaned ratings_df and saved to Parquet.
+2025-04-08 08:14:27,450 - INFO - 
+
+2025-04-08 08:14:36,375 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-04-08 08:14:36,553 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-04-08 08:14:36,634 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-04-08 08:14:36,721 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-04-08 08:14:36,874 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-04-08 08:14:36,874 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-04-08 08:14:36,885 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-04-08 08:14:36,897 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-04-08 08:14:36,940 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-04-08 08:14:36,959 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-04-08 08:14:37,595 - INFO - Successfully cleaned movies_df and saved to Parquet.
+2025-04-08 08:14:37,679 - INFO - Successfully cleaned movie_extended_df and saved to Parquet.
+2025-04-08 08:14:37,707 - INFO - Successfully cleaned ratings_df and saved to Parquet.
+2025-04-08 08:17:35,602 - INFO - dim_date successfully upserted to MySQL.
+2025-04-08 08:17:36,031 - INFO - dim_genre successfully upserted to MySQL.
+2025-04-08 08:17:36,487 - INFO - dim_production_company successfully upserted to MySQL.
+2025-04-08 08:17:36,962 - INFO - dim_production_countries successfully upserted to MySQL.
+2025-04-08 08:17:38,066 - INFO - dim_spoken_language successfully upserted to MySQL.
+2025-04-08 08:17:38,322 - INFO - fact_movies successfully upserted to MySQL.
+2025-04-08 08:17:38,455 - INFO - dim_ratings successfully upserted to MySQL.
+2025-04-08 08:17:39,015 - INFO - br_movie_genres successfully upserted to MySQL.
+2025-04-08 08:17:39,533 - INFO - br_movie_companies successfully upserted to MySQL.
+2025-04-08 08:17:40,010 - INFO - br_movie_countries successfully upserted to MySQL.
+2025-04-08 08:17:40,379 - INFO - br_movie_languages successfully upserted to MySQL.
+2025-04-08 08:17:41,043 - INFO - Closing down clientserver connection
