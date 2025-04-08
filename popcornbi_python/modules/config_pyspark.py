@@ -6,6 +6,7 @@ spark_home = "/Users/marcoo_sg/Spark"
 hadoop_home = "/Users/marcoo_sg/Spark/hadoop-3.4.1"
 
 os.environ['SPARK_HOME'] = spark_home
+os.environ['SPARK_MASTER_HOST'] = "localhost"
 os.environ['HADOOP_HOME'] = hadoop_home
 os.environ['HADOOP_CONF_DIR'] = os.path.join(hadoop_home, 'etc', 'hadoop')
 os.environ['LD_LIBRARY_PATH'] = os.path.join(hadoop_home, 'lib', 'native') + ':' + os.environ.get('LD_LIBRARY_PATH', '')

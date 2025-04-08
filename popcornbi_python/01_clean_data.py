@@ -40,7 +40,6 @@ movies_df = pd.DataFrame([movie.__dict__ for movie in movies_list])
 
 movies_df = movies_df.drop_duplicates()
 movies_df = movies_df.drop_duplicates(subset='id', keep='first')
-movies_df = movies_df.drop_duplicates(subset='title', keep='first')
 
 movies_df = movies_df[movies_df['id'].astype(str).str.isdigit()]
 
