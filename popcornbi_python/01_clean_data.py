@@ -40,6 +40,7 @@ movies_df = pd.DataFrame([movie.__dict__ for movie in movies_list])
 
 movies_df = movies_df.drop_duplicates()
 movies_df = movies_df.drop_duplicates(subset='id', keep='first')
+movies_df = movies_df.drop_duplicates(subset='title', keep='first')
 
 movies_df = movies_df[movies_df['id'].astype(str).str.isdigit()]
 
@@ -113,8 +114,6 @@ for col in movies_df.select_dtypes(include=[np.datetime64]).columns:
 
 movies_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.parquet", index=False)
 logger.info("Successfully cleaned movies_df and saved to Parquet.")
-# movies_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movies_df_cleaned.csv", index=False, encoding='utf-8')
-# logger.info("Successfully cleaned movies_df and saved to CSV.")
 
 ## Clean movie_extended_df
 ### Remove rows where id is not in movies_df
@@ -144,8 +143,6 @@ movie_extended_df = movie_extended_df[
 
 movie_extended_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.parquet", index=False, engine="pyarrow")
 logger.info("Successfully cleaned movie_extended_df and saved to Parquet.")
-# movie_extended_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/movie_extended_df_cleaned.csv", index=False, encoding='utf-8')
-# logger.info("Successfully cleaned movie_extended_df and saved to CSV.")
 
 # ratings_df
 ratings = list(map(lambda item: Rating.from_json(item), ratings_data))
@@ -164,5 +161,3 @@ ratings_df = ratings_df.drop_duplicates()
 
 ratings_df.to_parquet("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.parquet", index=False, engine="pyarrow")
 logger.info("Successfully cleaned ratings_df and saved to Parquet.")
-# ratings_df.to_csv("/Users/marcoo_sg/Desktop/PopcornBI/project_data/cleaned_df/ratings_df_cleaned.csv", index=False, encoding='utf-8')
-# logger.info("Successfully cleaned ratings_df and saved to CSV.")

@@ -161,13 +161,15 @@ br_movie_languages_df = (
 
 # -------------------- Write to MySQL --------------------
 
+# Database connection properties
 db_url = "jdbc:mysql://localhost:3306/popcornbi?rewriteBatchedStatements=true"
 db_properties = {
     "user": "root",
-    "password": "password",
+    "password": "password", 
     "driver": "com.mysql.cj.jdbc.Driver"
 }
 
+# Function to execute multiple SQL queries in a single session
 def execute_sql(queries):
     try:
         conn = spark._jvm.java.sql.DriverManager.getConnection(db_url, db_properties["user"], db_properties["password"])
@@ -177,7 +179,7 @@ def execute_sql(queries):
         stmt.close()
         conn.close()
     except Exception as e:
-        logger.error(f"SQL Execution Error: {e}")
+        print(f"SQL Execution Error: {e}")
 
 def replace_nan_with_null(df):
     return df.select([
@@ -186,6 +188,7 @@ def replace_nan_with_null(df):
         for c in df.columns
     ]) if df is not None else df
 
+# Process each DataFrame with upsert logic
 dataframes = {
     "dim_date": dim_date_df,
     "dim_genre": dim_genre_df,
@@ -330,8 +333,8 @@ for name, df in dataframes.items():
 
         upsert_query = upsert_templates[name].format(temp=temp_table)
         execute_sql([upsert_query, f"DROP TABLE IF EXISTS {temp_table};"])
-        logger.info(f"{name} successfully upserted to MySQL.")
+        print(f"{name} successfully upserted to MySQL.")
     except Exception as e:
-        logger.error(f"Error processing {name}: {e}")
-
+        print(f"Error processing {name}: {e}")
+        
 spark.stop()
