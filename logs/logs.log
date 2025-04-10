@@ -952,3 +952,18 @@ py4j.Py4JException: Method and([class java.lang.Boolean]) does not exist
 2025-04-09 22:46:41,778 - INFO - Closing down clientserver connection
 2025-04-09 22:47:02,254 - INFO - Closing down clientserver connection
 2025-04-09 22:57:18,945 - INFO - Closing down clientserver connection
+2025-04-10 01:35:54,841 - INFO - 
+
+2025-04-10 01:36:03,849 - ERROR - Error fetching release date for 'War Stories Our Mother Never Told Us': attribute name must be string, not 'int'
+2025-04-10 01:36:04,011 - ERROR - Error fetching release date for 'Stephen Fry In America - New World': attribute name must be string, not 'int'
+2025-04-10 01:36:04,036 - ERROR - Error fetching release date for 'Sentimentalnyy roman': attribute name must be string, not 'int'
+2025-04-10 01:36:04,129 - ERROR - Error fetching release date for '.hack Liminality: In the Case of Mai Minase': attribute name must be string, not 'int'
+2025-04-10 01:36:04,213 - ERROR - Error fetching release date for 'Whn the day had no name': attribute name must be string, not 'int'
+2025-04-10 01:36:04,274 - ERROR - Error fetching release date for 'Blindpassasjer': attribute name must be string, not 'int'
+2025-04-10 01:36:04,276 - ERROR - Error fetching release date for 'Irwin & Fran 2013': attribute name must be string, not 'int'
+2025-04-10 01:36:04,303 - ERROR - Error fetching release date for 'Игра на выбывание': attribute name must be string, not 'int'
+2025-04-10 01:36:04,330 - ERROR - Error fetching release date for 'The Garden of Afflictions 2017': attribute name must be string, not 'int'
+2025-04-10 01:36:04,477 - ERROR - Error fetching release date for 'Winning Favour': attribute name must be string, not 'int'
+2025-04-10 01:36:05,068 - INFO - Successfully cleaned movies_df and saved to Parquet.
+2025-04-10 01:36:05,110 - INFO - Successfully cleaned movie_extended_df and saved to Parquet.
+2025-04-10 01:36:05,127 - INFO - Successfully cleaned ratings_df and saved to Parquet.

@@ -7,8 +7,7 @@ logger.info("\n")
 # Load Data (csv and json files)
 movies_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movies_main.csv', encoding='utf-8')
 movie_extended_df = pd.read_csv('/Users/marcoo_sg/Desktop/PopcornBI/project_data/movie_extended.csv', encoding='utf-8')
-with open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json') as f:
-    ratings_data = json.load(f)
+ratings_data = json.load(open('/Users/marcoo_sg/Desktop/PopcornBI/project_data/ratings.json'))
 
 # Convert to Movies objects
 movies_list = [Movies.from_csv_row(row) for _, row in movies_df.iterrows()]
