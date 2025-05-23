@@ -88,7 +88,7 @@ CREATE TABLE br_movie_languages (
 -- if partitioned by year
 SELECT 
     d.year,
-    d.month,
+    d.mo≠nth,
     SUM(fm.revenue) AS total_revenue,
     LAG(SUM(fm.revenue)) OVER (PARTITION BY d.year ORDER BY d.month) AS prev_month_revenue,
     SUM(fm.revenue) - LAG(SUM(fm.revenue)) OVER (PARTITION BY d.year ORDER BY d.month) AS revenue_change
