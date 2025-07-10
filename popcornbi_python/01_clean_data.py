@@ -47,7 +47,7 @@ movies_df = movies_df.dropna(subset=['title'])
 
 ### Fill missing release dates
 tmdb = TMDb()
-tmdb.api_key = "66077d490a8b855a1c0e100911b15e47"
+tmdb.api_key = ""
 movie_api = Movie()
 
 def fetch_release_date(title):
